@@ -1,8 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.auth import get_user
 
 # Create your models here.
 
-class Records(models.Model):
+class Receita(models.Model):
+    campo_texto = models.TextField()
+
+    def __str__(self):
+        return self.campo_texto
+
+class Record(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)

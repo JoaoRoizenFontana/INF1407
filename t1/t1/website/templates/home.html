@@ -6,7 +6,31 @@
 
 {% if user.is_authenticated %}
 
-<h1>Hello World!</h1>
+<h1>Bem vindo</h1>
+
+<form method="post" action="{% url 'home' %}">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="id_campo_texto">Escreva sua receita</label>
+    <textarea class="form-control" id="id_campo_texto" name="campo_texto" rows="3"></textarea>
+  </div>
+  <br/>
+  <button type="submit" class="btn btn-secondary">Salvar</button>
+</form>
+
+{% if receitas %}
+    <h2>Receitas:</h2>
+    <ul>
+        {% for receita in receitas %}
+            <li>
+              {{ receita.campo_texto }}
+              <a href="{% url 'editar_receita' receita.id %}">Editar</a>
+          </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Você ainda não tem receitas.</p>
+{% endif %}
 
 {% else %}
 
@@ -15,10 +39,10 @@
 <form method="POST" action="{% url "home" %}">
     {% csrf_token %}
     <div class="mb-3">
-          <input type="text" class="form-control" name="username", placeholder="Username" required>
+          <input type="text" class="form-control" name="username" placeholder="Username" required>
         <div class="mb-3">
         <br/>
-          <input type="password" class="form-control" name="password", placeholder="Password" required>
+          <input type="password" class="form-control" name="password" placeholder="Password" required>
     </div>
         <button type="submit" class="btn btn-secondary">Login</button>
 
